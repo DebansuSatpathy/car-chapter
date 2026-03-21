@@ -1,0 +1,33 @@
+.home-page {
+  padding: 2rem 0;
+}
+
+.home-page__heading {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+}
+
+.home-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+  gap: 1.25rem;
+  padding: 0 1rem;
+}
+
+.home-page__status {
+  text-align: center;
+  margin: 1.5rem 0;
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+
+.home-page__status--error {
+  color: #fca5a5;
+  border-color: rgba(248, 113, 113, 0.35);
+  background: rgba(254, 202, 202, 0.12);
+}
