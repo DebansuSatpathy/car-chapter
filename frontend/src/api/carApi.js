@@ -1,4 +1,6 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL?.trim() ||
+  (import.meta.env.DEV ? 'http://localhost:5000/api' : '');
 
 /**
  * Fetch approved cars from the backend.
@@ -7,6 +9,11 @@ const API_BASE_URL = 'http://localhost:5000/api';
  * @throws If the request fails or the response is not OK.
  */
 export async function fetchCars() {
+  if (!API_BASE_URL) {
+    console.warn('VITE_API_BASE_URL is not set; listings are empty on this host.');
+    return [];
+  }
+
   try {
     const response = await fetch(`${API_BASE_URL}/cars`, {
       method: 'GET',

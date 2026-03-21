@@ -13,7 +13,7 @@ function Navbar() {
   return (
     <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
       <div className="container navbar__container">
-        <a href="/" className="navbar__logo">
+        <a href={import.meta.env.BASE_URL} className="navbar__logo">
           <div className="navbar__logo-mark">CC</div>
           <span className="navbar__logo-text">Car<span>Chapter</span></span>
         </a>
