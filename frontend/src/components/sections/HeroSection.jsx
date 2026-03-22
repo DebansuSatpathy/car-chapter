@@ -24,13 +24,13 @@ function HeroSection() {
           </div>
 
           <h1 className="hero__heading">
-            India's Premier Car
-            <span className="hero__heading-accent">for the Armed Forces</span>
+            India's Trusted Car Platform
+            <span className="hero__heading-accent">for Defence Personnel</span>
           </h1>
 
           <p className="hero__sub">
-            Exclusive marketplace designed for defence personnel. Verified vehicles,
-            CSD pricing benefits, and transparent transactions — built for those who serve.
+            Explore verified car listings, connect with trusted buyers and sellers, and get
+            assistance with CSD purchases — all in one place.
           </p>
 
           <div className="hero__search">

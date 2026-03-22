@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { supabase } from '../lib/supabase';
+import { MAX_LISTINGS_PER_USER } from '../lib/listingLimits';
 import { useAuth } from '../context/AuthContext';
 import './MyListingsPage.css';
 
@@ -62,6 +63,8 @@ export default function MyListingsPage() {
     return hero?.url || null;
   };
 
+  const atListingLimit = listings.length >= MAX_LISTINGS_PER_USER;
+
   return (
     <div className="my-listings-page">
       <Navbar />
@@ -94,10 +97,20 @@ export default function MyListingsPage() {
         {/* Actions row */}
         <div className="my-listings-toolbar">
           <h2 className="my-listings-section-title">All Listings</h2>
-          <Link to="/sell" className="my-listings-add-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            New Listing
-          </Link>
+          {atListingLimit ? (
+            <span
+              className="my-listings-add-btn my-listings-add-btn--disabled"
+              title={`Maximum ${MAX_LISTINGS_PER_USER} listings per account`}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              New Listing
+            </span>
+          ) : (
+            <Link to="/sell" className="my-listings-add-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              New Listing
+            </Link>
+          )}
         </div>
 
         {/* Loading */}

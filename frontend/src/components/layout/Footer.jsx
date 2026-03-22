@@ -12,10 +12,14 @@ function Footer() {
               <div className="footer__logo-mark">CC</div>
               <span className="footer__logo-text">Car<span>Chapter</span></span>
             </div>
-            <p className="footer__tagline">
-              India's premier car marketplace exclusively for defence personnel.
-              Verified listings. Transparent pricing. CSD assistance.
-            </p>
+            <div className="footer__text">
+              <p className="footer__tagline">
+                Sell your car faster with verified buyers from the defence community.
+              </p>
+              <p className="footer__tagline footer__tagline--sub">
+                We help you find the right buyer, handle the process, and ensure a smooth deal.
+              </p>
+            </div>
             <div className="footer__socials">
               <a href="#" className="footer__social-link" aria-label="Twitter">𝕏</a>
               <a href="#" className="footer__social-link" aria-label="Instagram">◈</a>

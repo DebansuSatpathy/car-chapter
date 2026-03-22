@@ -55,3 +55,25 @@ export async function updateListingStatus(id, status) {
     .eq('id', id);
   if (error) throw error;
 }
+
+/**
+ * Delete a listing (admin only).
+ */
+export async function deleteListing(id) {
+  const { error } = await supabase
+    .from('car_listings')
+    .delete()
+    .eq('id', id);
+  if (error) throw error;
+}
+
+/**
+ * Update listing fields (admin edit before approval).
+ */
+export async function updateListingFields(id, fields) {
+  const { error } = await supabase
+    .from('car_listings')
+    .update({ ...fields, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
+}

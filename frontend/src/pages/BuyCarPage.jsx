@@ -41,7 +41,7 @@ const SORT_OPTIONS = [
   { value: 'km_asc',    label: 'KM: Low to High' },
 ];
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1600&q=80';
+const HERO_IMG = '/hero-indian-car.png';
 
 /* ─── Skeleton Card ───────────────────────────────────────── */
 function SkeletonCard() {
@@ -429,7 +429,7 @@ export default function BuyCarPage() {
       {/* ══════════════════════ HERO ══════════════════════ */}
       <section className="bc-hero">
         <div className="bc-hero__bg">
-          <img src={HERO_IMG} alt="Luxury car" className="bc-hero__img" />
+          <img src={HERO_IMG} alt="SUV front view" className="bc-hero__img" />
           <div className="bc-hero__overlay" />
           <div className="bc-hero__grain" />
         </div>

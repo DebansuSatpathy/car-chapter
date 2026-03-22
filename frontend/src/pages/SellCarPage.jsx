@@ -1,17 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { supabase } from '../lib/supabase';
+import { MAX_LISTINGS_PER_USER } from '../lib/listingLimits';
 import { useAuth } from '../context/AuthContext';
 import './SellCarPage.css';
-
-const SAMPLE_IMAGES = [
-  'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80',
-  'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&q=80',
-  'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80',
-  'https://images.unsplash.com/photo-1542362567-b07e54358753?w=800&q=80',
-];
 
 const COLORS = [
   { name: 'White',  hex: '#F5F5F5' },
@@ -49,9 +43,11 @@ export default function SellCarPage() {
   const [activeStep, setActiveStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  /** null = not loaded (logged-in) or N/A (guest); number = count for current user */
+  const [userListingCount, setUserListingCount] = useState(null);
 
   // Photos
-  const [photos, setPhotos] = useState(SAMPLE_IMAGES.map((url, i) => ({ url, isHero: i === 0, isFile: false, file: null })));
+  const [photos, setPhotos] = useState([]);
   const [heroIndex, setHeroIndex] = useState(0);
 
   // Details
@@ -83,6 +79,27 @@ export default function SellCarPage() {
 
   const displayPrice = formatINR(price);
   const uploadedCount = photos.length;
+
+  useEffect(() => {
+    if (!user) {
+      setUserListingCount(null);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      const { count, error } = await supabase
+        .from('car_listings')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+      if (!cancelled && !error) setUserListingCount(count ?? 0);
+    })();
+    return () => { cancelled = true; };
+  }, [user]);
+
+  const atListingLimit =
+    isAuthenticated && userListingCount !== null && userListingCount >= MAX_LISTINGS_PER_USER;
+  const publishBlocked =
+    submitting || (isAuthenticated && (userListingCount === null || atListingLimit));
   const years = [];
   for (let y = 2024; y >= 2000; y--) years.push(String(y));
 
@@ -129,6 +146,18 @@ export default function SellCarPage() {
     setSubmitError('');
 
     try {
+      const { count, error: countErr } = await supabase
+        .from('car_listings')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+      if (countErr) throw countErr;
+      if ((count ?? 0) >= MAX_LISTINGS_PER_USER) {
+        setUserListingCount(count ?? 0);
+        throw new Error(
+          `You can have at most ${MAX_LISTINGS_PER_USER} listings. Remove one from My Listings to add another.`,
+        );
+      }
+
       // Upload file photos to Supabase Storage if any
       const finalPhotos = [];
       for (let i = 0; i < photos.length; i++) {
@@ -176,6 +205,20 @@ export default function SellCarPage() {
   return (
     <div className="sell-page">
       <Navbar />
+
+      {atListingLimit && (
+        <div className="sell-limit-banner" role="status">
+          <div className="container sell-limit-banner__inner">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+            <p>
+              You have reached the maximum of {MAX_LISTINGS_PER_USER} listings per account.
+              {' '}
+              <Link to="/my-listings">Delete a listing</Link>
+              {' '}to publish a new one.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* ── Progress Stepper ── */}
       <div className="sell-progress">
@@ -607,7 +650,12 @@ export default function SellCarPage() {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                   Edit Listing
                 </button>
-                <button className="sell-btn-gold sell-btn-gold--publish" onClick={handlePublish} disabled={submitting}>
+                <button
+                  className="sell-btn-gold sell-btn-gold--publish"
+                  onClick={handlePublish}
+                  disabled={publishBlocked}
+                  title={atListingLimit ? `Maximum ${MAX_LISTINGS_PER_USER} listings per account` : undefined}
+                >
                   {submitting ? (
                     <><span className="sell-spinner" /> Publishing…</>
                   ) : (

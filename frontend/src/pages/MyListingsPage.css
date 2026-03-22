@@ -115,6 +115,12 @@
   transform: translateY(-1px);
 }
 
+.my-listings-add-btn--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* ── Loading / Error / Empty ── */
 .my-listings-loading {
   display: flex;

@@ -8,17 +8,30 @@ const FALLBACK_IMAGES = [
   'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80',
 ];
 
+/** Matches car_listings shape (make, photos[], price) used across Buy / Sell / Admin */
+function heroImageUrl(listing) {
+  const photos = listing.photos || [];
+  const hero = photos[listing.hero_index] ?? photos[0];
+  return hero?.url || null;
+}
+
 function CarCard({ car, index = 0 }) {
-  const { brand, model, listing_price, images = [], year, km_driven, fuel_type, location } = car;
-  const title = `${brand} ${model}`.trim();
+  const make = car.make ?? car.brand;
+  const model = car.model;
+  const { year, km_driven } = car;
+  const price = car.price ?? car.listing_price;
+  const fuel = car.fuel ?? car.fuel_type;
+  const location = car.city ?? car.location;
+
+  const title = [make, model].filter(Boolean).join(' ') || 'Listing';
 
   const imageUrl =
-    images && images.length > 0
-      ? images[0]
-      : FALLBACK_IMAGES[index % FALLBACK_IMAGES.length];
+    heroImageUrl(car) ||
+    (Array.isArray(car.images) && car.images[0]) ||
+    FALLBACK_IMAGES[index % FALLBACK_IMAGES.length];
 
-  const formattedPrice = listing_price
-    ? new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(listing_price)
+  const formattedPrice = price
+    ? new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(price)
     : '₹ On Request';
 
   const formattedKm = km_driven
@@ -49,7 +62,7 @@ function CarCard({ car, index = 0 }) {
           </div>
           <div className="detail-row">
             <span className="detail-label">Fuel</span>
-            <span className="detail-value">{fuel_type || '—'}</span>
+            <span className="detail-value">{fuel || '—'}</span>
           </div>
         </div>
 
