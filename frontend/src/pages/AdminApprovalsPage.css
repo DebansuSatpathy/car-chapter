@@ -194,6 +194,21 @@
   color: inherit;
 }
 
+@media (max-width: 768px) {
+  .admin-tabs {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-tab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+}
+
 /* ── Error / Loading / Empty ── */
 .admin-error {
   background: rgba(239, 68, 68, 0.1);

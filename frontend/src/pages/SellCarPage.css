@@ -1047,6 +1047,93 @@
   .sell-progress::-webkit-scrollbar { display: none; }
 }
 
+/* ── Mobile (≤480px) ── */
+@media (max-width: 480px) {
+  /* Progress bar — compact for narrow screens */
+  .sell-progress {
+    height: 44px;
+    top: 60px;
+  }
+  .sell-progress__step {
+    font-size: 0.7rem;
+    gap: 5px;
+  }
+  .sell-progress__step-dot {
+    width: 18px;
+    height: 18px;
+    font-size: 0.58rem;
+  }
+  .sell-progress__line {
+    min-width: 20px;
+    margin: 0 8px;
+  }
+  .sell-progress__step-label {
+    display: none; /* hide text labels, show only dots */
+  }
+
+  /* Body clears smaller navbar + smaller progress */
+  .sell-page__body {
+    padding-top: 104px; /* 60px navbar + 44px progress */
+  }
+
+  /* Hero — shorter */
+  .sell-hero {
+    height: 200px;
+  }
+  .sell-hero__title {
+    font-size: 1.3rem;
+  }
+  .sell-hero__title span {
+    font-size: 1.3rem;
+  }
+  .sell-hero__sub {
+    font-size: 0.78rem;
+  }
+  .sell-hero__stats {
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+  .sell-hero__stat {
+    padding: 0.35rem 0.55rem;
+  }
+  .sell-hero__stat-val {
+    font-size: 0.85rem;
+  }
+  .sell-hero__stat-lbl {
+    font-size: 0.55rem;
+  }
+
+  /* Form cards — tighter padding */
+  .sell-card {
+    padding: 1.1rem 0.9rem;
+  }
+  .sell-form-area {
+    padding: 1rem 0.75rem 3rem;
+  }
+
+  /* Photo grid — keep 1 column */
+  .photo-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  /* Price input */
+  .price-input {
+    font-size: 1.75rem;
+  }
+
+  /* Step nav buttons */
+  .sell-step-nav {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .sell-step-nav > button,
+  .sell-step-nav > .sell-btn-gold {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* ──────────────────────────────────────────
    STEP NAV (Next / Back buttons)
    ────────────────────────────────────────── */

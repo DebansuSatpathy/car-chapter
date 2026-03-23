@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './HeroSection.css';
 
 function HeroSection() {
   const bgRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -57,12 +59,18 @@ function HeroSection() {
               <option>₹10L – ₹20L</option>
               <option>Above ₹20L</option>
             </select>
-            <button className="hero__search-btn">Search</button>
+            <button className="hero__search-btn" onClick={() => navigate('/buy')}>
+              Search
+            </button>
           </div>
 
           <div className="hero__actions">
-            <button className="hero__btn-primary">Upload Your Car</button>
-            <button className="hero__btn-outline">Browse Listings</button>
+            <button className="hero__btn-primary" onClick={() => navigate('/sell')}>
+              Upload Your Car
+            </button>
+            <button className="hero__btn-outline" onClick={() => navigate('/buy')}>
+              Browse Listings
+            </button>
             <button className="hero__btn-outline">CSD Assistance</button>
           </div>
 

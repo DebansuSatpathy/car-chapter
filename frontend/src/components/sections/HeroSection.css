@@ -322,6 +322,7 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
+  .hero__container { padding-top: 110px; }
   .hero__heading { font-size: 2.2rem; }
   .hero__search { flex-direction: column; border-radius: var(--radius-sm); }
   .hero__search-divider { display: none; }
@@ -329,4 +330,92 @@
   .hero__search-btn { margin: 0; border-radius: 0 0 var(--radius-sm) var(--radius-sm); padding: 0.85rem; }
   .hero__card { display: none; }
   .hero__trust { gap: 1.25rem; }
+}
+
+/* ── Mobile (≤480px) ── */
+@media (max-width: 480px) {
+  .hero {
+    min-height: auto;
+    padding-bottom: 2rem;
+  }
+
+  .hero__container {
+    padding-top: 120px;
+    padding-bottom: 2rem;
+  }
+
+  .hero__inner {
+    gap: 1rem;
+    margin-top: 6rem;
+  }
+
+  .hero__badge {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.75rem;
+  }
+
+  .hero__heading {
+    font-size: 1.75rem;
+    line-height: 1.15;
+  }
+
+  .hero__sub {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* Search bar — full-width stacked */
+  .hero__search {
+    flex-direction: column;
+    border-radius: var(--radius-sm);
+  }
+  .hero__search-input {
+    padding: 0.85rem 1rem;
+    font-size: 0.85rem;
+  }
+  .hero__search-select {
+    padding: 0.75rem 1rem;
+    min-width: unset;
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+  }
+  .hero__search-btn {
+    margin: 0;
+    padding: 0.85rem;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    font-size: 0.85rem;
+  }
+  .hero__search-divider { display: none; }
+
+  /* CTA buttons — stack vertically, full width */
+  .hero__actions {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .hero__btn-primary,
+  .hero__btn-outline {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.82rem;
+  }
+
+  /* Trust stats — 2x2 grid */
+  .hero__trust {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    padding-top: 1rem;
+  }
+  .trust-item__value {
+    font-size: 1.15rem;
+  }
+  .trust-item__label {
+    font-size: 0.65rem;
+  }
+
+  /* Hide scroll indicator on small screens */
+  .hero__scroll { display: none; }
+  .hero__card { display: none; }
 }

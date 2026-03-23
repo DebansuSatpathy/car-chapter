@@ -148,7 +148,10 @@ export default function SellCarPage() {
   }
 
   function nextStep() {
-    if (activeStep < STEPS.length - 1 && canProceed()) setActiveStep(s => s + 1);
+    if (activeStep < STEPS.length - 1 && canProceed()) {
+      setActiveStep(s => s + 1);
+      window.scrollTo(0, 0);
+    }
   }
   function prevStep() {
     if (activeStep > 0) setActiveStep(s => s - 1);
