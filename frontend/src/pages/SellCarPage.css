@@ -95,7 +95,7 @@
 .sell-hero {
   position: relative;
   height: 320px;
-  background-image: url('/hero-indian-car.png');
+  background-image: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1920&q=80');
   background-size: cover;
   background-position: center center;
   border-bottom: 1px solid var(--border);
@@ -1249,6 +1249,69 @@
   color: var(--gold);
   font-weight: 600;
   text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.sell-limit-banner__inner a svg {
+  color: #25D366;
+}
+
+/* ──────────────────────────────────────────
+   LIMIT TOAST
+   ────────────────────────────────────────── */
+.sell-limit-toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1200;
+  width: min(92vw, 430px);
+  background: #10141d;
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  padding: 0.9rem 1rem 1rem 0.9rem;
+  color: #eef4ff;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.7rem;
+}
+
+.sell-limit-toast__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.55rem;
+  border: none;
+  background: transparent;
+  color: #9aa7bf;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.sell-limit-toast__close:hover {
+  color: #ffffff;
+}
+
+.sell-limit-toast__icon {
+  color: #fbbf24;
+  margin-top: 0.1rem;
+}
+
+.sell-limit-toast p {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  padding-right: 1rem;
+}
+
+.sell-limit-toast a {
+  color: #25D366;
+  font-weight: 700;
+  text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
 }
 
 /* ──────────────────────────────────────────

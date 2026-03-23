@@ -41,7 +41,7 @@ const SORT_OPTIONS = [
   { value: 'km_asc',    label: 'KM: Low to High' },
 ];
 
-const HERO_IMG = '/hero-indian-car.png';
+const HERO_IMG = 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1920&q=80';
 
 /* ─── Skeleton Card ───────────────────────────────────────── */
 function SkeletonCard() {

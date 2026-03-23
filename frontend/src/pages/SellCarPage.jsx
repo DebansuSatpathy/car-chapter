@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { supabase } from '../lib/supabase';
@@ -20,6 +20,10 @@ const COLORS = [
 
 const STEPS = ['Photos', 'Details', 'Pricing', 'Review'];
 const PRICE_CHIPS = ['₹11L', '₹12L', '₹12.5L', '₹13L', '₹14L'];
+const SUPPORT_WHATSAPP_NUMBER = '+91 94307 38066';
+const SUPPORT_WHATSAPP_LINK = 'https://wa.me/919430738066';
+const LISTING_LIMIT_MESSAGE =
+  'You have already uploaded 2 cars. If you want to upload more cars for sell, contact +91 94307 38066 on WhatsApp.';
 
 function formatINR(val) {
   if (!val) return '';
@@ -43,6 +47,7 @@ export default function SellCarPage() {
   const [activeStep, setActiveStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [showLimitToast, setShowLimitToast] = useState(false);
   /** null = not loaded (logged-in) or N/A (guest); number = count for current user */
   const [userListingCount, setUserListingCount] = useState(null);
 
@@ -100,6 +105,15 @@ export default function SellCarPage() {
     isAuthenticated && userListingCount !== null && userListingCount >= MAX_LISTINGS_PER_USER;
   const publishBlocked =
     submitting || (isAuthenticated && (userListingCount === null || atListingLimit));
+
+  useEffect(() => {
+    if (atListingLimit) {
+      setShowLimitToast(true);
+    } else {
+      setShowLimitToast(false);
+    }
+  }, [atListingLimit]);
+
   const years = [];
   for (let y = 2024; y >= 2000; y--) years.push(String(y));
 
@@ -153,9 +167,7 @@ export default function SellCarPage() {
       if (countErr) throw countErr;
       if ((count ?? 0) >= MAX_LISTINGS_PER_USER) {
         setUserListingCount(count ?? 0);
-        throw new Error(
-          `You can have at most ${MAX_LISTINGS_PER_USER} listings. Remove one from My Listings to add another.`,
-        );
+        throw new Error(LISTING_LIMIT_MESSAGE);
       }
 
       // Upload file photos to Supabase Storage if any
@@ -211,12 +223,45 @@ export default function SellCarPage() {
           <div className="container sell-limit-banner__inner">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
             <p>
-              You have reached the maximum of {MAX_LISTINGS_PER_USER} listings per account.
+              You have already uploaded {MAX_LISTINGS_PER_USER} cars. If you want to upload more cars for sell, contact
               {' '}
-              <Link to="/my-listings">Delete a listing</Link>
-              {' '}to publish a new one.
+              <a href={SUPPORT_WHATSAPP_LINK} target="_blank" rel="noreferrer">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M20.52 3.48A11.86 11.86 0 0 0 12.03 0C5.43 0 .06 5.37.06 11.97c0 2.11.55 4.17 1.59 5.99L0 24l6.2-1.63a11.9 11.9 0 0 0 5.83 1.49h.01c6.6 0 11.97-5.37 11.97-11.97a11.9 11.9 0 0 0-3.49-8.41ZM12.04 21.84h-.01a9.86 9.86 0 0 1-5.02-1.37l-.36-.21-3.68.97.99-3.59-.23-.37a9.83 9.83 0 0 1-1.5-5.29c0-5.44 4.42-9.86 9.86-9.86 2.63 0 5.1 1.03 6.96 2.9a9.8 9.8 0 0 1 2.9 6.96c0 5.44-4.42 9.86-9.86 9.86Zm5.41-7.39c-.3-.15-1.78-.88-2.05-.98-.28-.1-.48-.15-.68.15s-.78.98-.95 1.18c-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47a9.12 9.12 0 0 1-1.67-2.08c-.18-.3-.02-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.63-.94-2.23-.25-.6-.5-.51-.68-.52h-.58c-.2 0-.53.08-.8.38-.28.3-1.06 1.03-1.06 2.52s1.09 2.92 1.24 3.13c.15.2 2.14 3.28 5.18 4.59.72.31 1.29.5 1.73.64.73.23 1.4.2 1.93.12.59-.09 1.78-.73 2.03-1.43.25-.7.25-1.29.18-1.42-.08-.12-.28-.2-.58-.35Z" />
+                </svg>
+                {SUPPORT_WHATSAPP_NUMBER}
+              </a>
+              {' '}on WhatsApp.
             </p>
           </div>
+        </div>
+      )}
+
+      {showLimitToast && atListingLimit && (
+        <div className="sell-limit-toast" role="alert" aria-live="assertive">
+          <button
+            className="sell-limit-toast__close"
+            onClick={() => setShowLimitToast(false)}
+            aria-label="Close message"
+            type="button"
+          >
+            ✕
+          </button>
+          <div className="sell-limit-toast__icon" aria-hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+          </div>
+          <p>
+            You have already uploaded {MAX_LISTINGS_PER_USER} cars.
+            <br />
+            To upload more, contact on WhatsApp:
+            {' '}
+            <a href={SUPPORT_WHATSAPP_LINK} target="_blank" rel="noreferrer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                <path d="M20.52 3.48A11.86 11.86 0 0 0 12.03 0C5.43 0 .06 5.37.06 11.97c0 2.11.55 4.17 1.59 5.99L0 24l6.2-1.63a11.9 11.9 0 0 0 5.83 1.49h.01c6.6 0 11.97-5.37 11.97-11.97a11.9 11.9 0 0 0-3.49-8.41ZM12.04 21.84h-.01a9.86 9.86 0 0 1-5.02-1.37l-.36-.21-3.68.97.99-3.59-.23-.37a9.83 9.83 0 0 1-1.5-5.29c0-5.44 4.42-9.86 9.86-9.86 2.63 0 5.1 1.03 6.96 2.9a9.8 9.8 0 0 1 2.9 6.96c0 5.44-4.42 9.86-9.86 9.86Zm5.41-7.39c-.3-.15-1.78-.88-2.05-.98-.28-.1-.48-.15-.68.15s-.78.98-.95 1.18c-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47a9.12 9.12 0 0 1-1.67-2.08c-.18-.3-.02-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.63-.94-2.23-.25-.6-.5-.51-.68-.52h-.58c-.2 0-.53.08-.8.38-.28.3-1.06 1.03-1.06 2.52s1.09 2.92 1.24 3.13c.15.2 2.14 3.28 5.18 4.59.72.31 1.29.5 1.73.64.73.23 1.4.2 1.93.12.59-.09 1.78-.73 2.03-1.43.25-.7.25-1.29.18-1.42-.08-.12-.28-.2-.58-.35Z" />
+              </svg>
+              {SUPPORT_WHATSAPP_NUMBER}
+            </a>
+          </p>
         </div>
       )}
 

@@ -2,10 +2,10 @@ import React from 'react';
 import './CarCard.css';
 
 const FALLBACK_IMAGES = [
-  'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=800&q=80', // Mahindra Thar
+  'https://images.unsplash.com/photo-1625231334168-34cea3e30132?auto=format&fit=crop&w=800&q=80', // Toyota Fortuner
+  'https://images.unsplash.com/photo-1619405399517-d7fce0f13302?auto=format&fit=crop&w=800&q=80', // Hyundai Creta
+  'https://images.unsplash.com/photo-1606611013004-1a23f9f0a08e?auto=format&fit=crop&w=800&q=80', // Kia Seltos
 ];
 
 /** Matches car_listings shape (make, photos[], price) used across Buy / Sell / Admin */
