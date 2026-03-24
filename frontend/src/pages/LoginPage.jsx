@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './LoginPage.css';
 
 export default function LoginPage() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPass, setShowPass] = useState(false);
@@ -26,7 +27,12 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await signIn({ email: form.email, password: form.password });
-      navigate('/');
+      const from = location.state?.from;
+      const safe =
+        typeof from === 'string' && from.startsWith('/') && !from.startsWith('//')
+          ? from
+          : '/';
+      navigate(safe, { replace: true });
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.');
     } finally {

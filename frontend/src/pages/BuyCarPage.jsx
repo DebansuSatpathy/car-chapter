@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { fetchCars } from '../api/carApi';
@@ -68,8 +68,15 @@ function SkeletonCard() {
 
 /* ─── Car Detail Modal ────────────────────────────────────── */
 function CarDetailModal({ car, onClose }) {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const canSeePrice = !!user;
+
+  const handleContactSeller = () => {
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: `/buy?car=${encodeURIComponent(car.id)}` } });
+    }
+  };
   const [activePhoto, setActivePhoto] = useState(car.hero_index || 0);
   const photos = car.photos || [];
 
@@ -181,7 +188,7 @@ function CarDetailModal({ car, onClose }) {
             <h4 className="bc-modal__section-title">Interested?</h4>
             <p className="bc-modal__contact-hint">This is a verified defence community listing. Contact the seller to arrange a viewing.</p>
             <div className="bc-modal__contact-actions">
-              <button className="bc-modal__contact-btn bc-modal__contact-btn--primary">
+              <button type="button" className="bc-modal__contact-btn bc-modal__contact-btn--primary" onClick={handleContactSeller}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35a2 2 0 0 1 1.98-2.18H6.6a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.92a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                 Contact Seller
               </button>
