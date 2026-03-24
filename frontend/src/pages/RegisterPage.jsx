@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { WebsiteImages } from '../constants/constant';
 import './LoginPage.css'; // shared styles
 import './RegisterPage.css';
 
@@ -69,7 +70,7 @@ export default function RegisterPage() {
   return (
     <div className="auth-page">
       {/* Left visual */}
-      <div className="auth-page__visual register-visual">
+      <div className="auth-page__visual register-visual" style={{ backgroundImage: `url('${WebsiteImages.RegisterBg}')` }}>
         <div className="auth-page__visual-overlay" />
         <div className="auth-page__visual-content">
           <Link to="/" className="auth-page__logo">

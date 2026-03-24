@@ -9,7 +9,6 @@
 .auth-page__visual {
   position: relative;
   overflow: hidden;
-  background-image: url('https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=1200&q=80');
   background-size: cover;
   background-position: center;
 }

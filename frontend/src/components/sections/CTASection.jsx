@@ -1,10 +1,11 @@
 import React from 'react';
+import { WebsiteImages } from '../../constants/constant';
 import './CTASection.css';
 
 function CTASection() {
   return (
     <section className="cta">
-      <div className="cta__bg" />
+      <div className="cta__bg" style={{ backgroundImage: `url('${WebsiteImages.CTABg}')` }} />
       <div className="cta__overlay" />
       <div className="container">
         <div className="cta__body">

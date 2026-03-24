@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { WebsiteImages } from '../../constants/constant';
 import './HeroSection.css';
 
 function HeroSection() {
@@ -15,7 +16,7 @@ function HeroSection() {
 
   return (
     <section className="hero">
-      <div className="hero__bg" ref={bgRef} />
+      <div className="hero__bg" ref={bgRef} style={{ backgroundImage: `url('${WebsiteImages.HeroBg}')` }} />
       <div className="hero__overlay" />
 
       <div className="container hero__container">

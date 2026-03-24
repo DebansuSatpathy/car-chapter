@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { WebsiteImages } from '../constants/constant';
 import './LoginPage.css';
 
 export default function LoginPage() {
@@ -43,7 +44,7 @@ export default function LoginPage() {
   return (
     <div className="auth-page">
       {/* Left visual */}
-      <div className="auth-page__visual">
+      <div className="auth-page__visual" style={{ backgroundImage: `url('${WebsiteImages.LoginBg}')` }}>
         <div className="auth-page__visual-overlay" />
         <div className="auth-page__visual-content">
           <Link to="/" className="auth-page__logo">

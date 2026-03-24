@@ -4,6 +4,7 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { fetchCars } from '../api/carApi';
 import { useAuth } from '../context/AuthContext';
+import { WebsiteImages } from '../constants/constant';
 import './BuyCarPage.css';
 
 /* ─── Helpers ────────────────────────────────────────────── */
@@ -47,7 +48,7 @@ const SORT_OPTIONS = [
   { value: 'km_asc',    label: 'KM: Low to High' },
 ];
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1920&q=80';
+const HERO_IMG = WebsiteImages.BuyCarHero;
 
 /* ─── Skeleton Card ───────────────────────────────────────── */
 function SkeletonCard() {

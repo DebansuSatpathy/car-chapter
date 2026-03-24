@@ -1,0 +1,18 @@
+export const WebsiteImages = {
+    HeroImage: 'https://images.unsplash.com/photo-1748214547184-d994bfe53322?auto=format&fit=crop&w=800&q=80',
+    FooterImage: 'https://images.unsplash.com/photo-1552100177-7191e6ae33cc?auto=format&fit=crop&w=800&q=80',
+    Logo: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=800&q=80',
+    LogoText: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=800&q=80',
+    LogoMark: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=800&q=80',
+    WhyChooseUsImage: 'https://images.unsplash.com/photo-1559038465-e0ca2910a5b1?auto=format&fit=crop&w=800&q=80',
+    HeroBg: 'https://images.unsplash.com/photo-1552100177-7191e6ae33cc?auto=format&fit=crop&w=1920&q=80',
+    CTABg: 'https://images.unsplash.com/photo-1728535530283-27eb9a380ce6?auto=format&fit=crop&w=1920&q=80',
+    LoginBg: 'https://images.unsplash.com/photo-1693153201102-a290be4bb7eb?auto=format&fit=crop&w=1200&q=80',
+    RegisterBg: 'https://images.unsplash.com/photo-1748214547184-d994bfe53322?auto=format&fit=crop&w=1200&q=80',
+    SellCarBg: 'https://images.unsplash.com/photo-1633867179970-c54688bcfa33?auto=format&fit=crop&w=1920&q=80',
+    BuyCarHero: 'https://images.unsplash.com/photo-1692600681037-547f598a1b38?auto=format&fit=crop&w=1920&q=80',
+    FallbackCar1: 'https://images.unsplash.com/photo-1748214547184-d994bfe53322?auto=format&fit=crop&w=800&q=80',
+    FallbackCar2: 'https://images.unsplash.com/photo-1559038465-e0ca2910a5b1?auto=format&fit=crop&w=800&q=80',
+    FallbackCar3: 'https://images.unsplash.com/photo-1674110997072-41f11b7d4ae7?auto=format&fit=crop&w=800&q=80',
+    FallbackCar4: 'https://images.unsplash.com/photo-1722352108543-c22189140ef2?auto=format&fit=crop&w=800&q=80',
+}

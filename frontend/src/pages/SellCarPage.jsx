@@ -5,6 +5,7 @@ import Footer from '../components/layout/Footer';
 import { supabase } from '../lib/supabase';
 import { MAX_LISTINGS_PER_USER } from '../lib/listingLimits';
 import { useAuth } from '../context/AuthContext';
+import { WebsiteImages } from '../constants/constant';
 import './SellCarPage.css';
 
 const COLORS = [
@@ -294,7 +295,7 @@ export default function SellCarPage() {
       <div className="sell-page__body">
 
         {/* ── Hero Banner ── */}
-        <section className="sell-hero">
+        <section className="sell-hero" style={{ backgroundImage: `url('${WebsiteImages.SellCarBg}')` }}>
           <div className="sell-hero__overlay" />
           <div className="sell-hero__container">
             <div className="sell-hero__content">
