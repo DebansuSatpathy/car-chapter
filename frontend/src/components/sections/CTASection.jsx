@@ -14,8 +14,7 @@ function CTASection() {
             Ready to sell your car <span>for the right price?</span>
           </h2>
           <p className="cta__text">
-            Join 5,000+ defence personnel who trust CarChapter. List your vehicle
-            for free and connect with verified buyers from the armed forces community.
+            Sell your car faster with verified buyers from the defence community. We help you find the right buyer, handle the process, and ensure a smooth deal.
           </p>
           <div className="cta__buttons">
             <button className="cta__btn-primary">Upload Your Car — It's Free</button>

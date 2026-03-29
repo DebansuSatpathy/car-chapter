@@ -9,7 +9,7 @@ import { WebsiteImages } from '../constants/constant';
 import './SellCarPage.css';
 
 const COLORS = [
-  { name: 'White',  hex: '#F5F5F5' },
+  { name: 'White',  hex: '#FFFFFF' },
   { name: 'Silver', hex: '#C0C0C0' },
   { name: 'Black',  hex: '#1A1A1A' },
   { name: 'Red',    hex: '#C0392B' },

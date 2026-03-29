@@ -126,6 +126,12 @@
 
 .cta__trust-icon { color: var(--gold); font-size: 0.9rem; }
 
+@media (min-width: 1024px) {
+  .cta__bg {
+    background-position: center 75%;
+  }
+}
+
 @media (max-width: 640px) {
   .cta { padding: 5rem 0; }
 }

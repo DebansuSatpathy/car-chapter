@@ -94,7 +94,7 @@
   position: relative;
   height: 320px;
   background-size: cover;
-  background-position: center center;
+  background-position: center 25%;
   border-bottom: 1px solid var(--border);
   overflow: hidden;
 }
