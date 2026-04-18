@@ -48,6 +48,8 @@ const SORT_OPTIONS = [
   { value: 'km_asc',    label: 'KM: Low to High' },
 ];
 
+const SUPPORT_WHATSAPP_NUMBER = '+91 94307 38066';
+const SUPPORT_WHATSAPP_LINK = 'https://wa.me/919430738066';
 const HERO_IMG = WebsiteImages.BuyCarHero;
 
 /* ─── Skeleton Card ───────────────────────────────────────── */
@@ -72,12 +74,16 @@ function CarDetailModal({ car, onClose }) {
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const canSeePrice = !!user;
+  const isGuest = !isAuthenticated;
 
   const handleContactSeller = () => {
-    if (!isAuthenticated) {
-      navigate('/login', { state: { from: `/buy?car=${encodeURIComponent(car.id)}` } });
-    }
+    window.open(SUPPORT_WHATSAPP_LINK, '_blank', 'noreferrer');
   };
+
+  const handleLoginToView = () => {
+    navigate('/login', { state: { from: `/buy?car=${encodeURIComponent(car.id)}` } });
+  };
+
   const [activePhoto, setActivePhoto] = useState(car.hero_index || 0);
   const photos = car.photos || [];
 
@@ -186,13 +192,37 @@ function CarDetailModal({ car, onClose }) {
           )}
 
           <div className="bc-modal__contact">
-            <h4 className="bc-modal__section-title">Interested?</h4>
-            <p className="bc-modal__contact-hint">This is a verified defence community listing. Contact the seller to arrange a viewing.</p>
+            <div className="bc-modal__contact-header">
+              <div>
+                <h4 className="bc-modal__section-title">Interested?</h4>
+                <p className="bc-modal__contact-hint">
+                  This is a verified defence community listing. Contact the seller to arrange a viewing.
+                </p>
+              </div>
+              <a
+                href={SUPPORT_WHATSAPP_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className="bc-modal__contact-icon"
+                aria-label="Contact seller on WhatsApp"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+                  <path d="M21 15a2 2 0 0 1-2 2h-1l-1 1-1-1h-7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8z" />
+                  <path d="M8 9h8M8 13h5" />
+                  <path d="M16.5 3.5a7.5 7.5 0 0 1 0 15" />
+                </svg>
+              </a>
+            </div>
             <div className="bc-modal__contact-actions">
               <button type="button" className="bc-modal__contact-btn bc-modal__contact-btn--primary" onClick={handleContactSeller}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35a2 2 0 0 1 1.98-2.18H6.6a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.92a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                 Contact Seller
               </button>
+              {isGuest && (
+                <button type="button" className="bc-modal__contact-btn bc-modal__contact-btn--secondary" onClick={handleLoginToView}>
+                  Login to view details
+                </button>
+              )}
               <button className="bc-modal__contact-btn bc-modal__contact-btn--secondary" onClick={onClose}>
                 Back to Listings
               </button>
